@@ -31,8 +31,5 @@ public class PersonaRestService {
 	public int guardarPersona (@RequestBody PersonaDTO persona) {
 		return personaService.guardarPersona(persona);
 	}
-	
-	
-	
 
 }
