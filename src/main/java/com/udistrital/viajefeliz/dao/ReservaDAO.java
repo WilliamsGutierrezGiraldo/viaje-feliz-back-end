@@ -1,5 +1,7 @@
 package com.udistrital.viajefeliz.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -26,16 +28,17 @@ public class ReservaDAO {
 			+ "FROM TBL_RESERVA R "
 			+ "WHERE FK_PERSONA = ?";
 	
-	private static String SAVE_RESERVA = "INSERT INTO TBL_RESERVA VALUES (?,?,?,?,?,?,?,?,?)";
+	private static String SAVE_RESERVA = "INSERT INTO TBL_RESERVA (VALOR_PARCIAL, MASCOTA, FECHA_INICIO, FECHA_FIN, VALOR_TOTAL, " 
+			+"NUMERO_PERSONAS, FK_VIVIENDA, FK_PERSONA, ESTADO) VALUES (?,?,?,?,?,?,?,?,?)";
 	
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	
-	public ReservaDTO consultarReservaPorPersonaId (String idPersona) {
+	public List<ReservaDTO> consultarReservasPorPersonaId (String idPersona) {
 		try {
-			return jdbcTemplate.queryForObject(FIND_BY_PERSONA_ID, new Object[] {idPersona}, 
+			return jdbcTemplate.query(FIND_BY_PERSONA_ID, new Object[] {idPersona}, 
 					new BeanPropertyRowMapper<>(ReservaDTO.class));
 			
 		} catch (DataAccessException e) {
@@ -44,16 +47,21 @@ public class ReservaDAO {
 	}
 	
 	public int guardarReserva (ReservaDTO reserva) {
-		return this.jdbcTemplate.update(SAVE_RESERVA, 
-				reserva.getValorParcial(),
-				reserva.getMascota(),
-				reserva.getFechaInicio(),
-				reserva.getFechaFin(),
-				reserva.getValorTotal(),
-				reserva.getNumeroPersonas(),
-				reserva.getFkVivienda(),
-				reserva.getFkPersona(),
-				reserva.getEstado());
+		try {
+			return this.jdbcTemplate.update(SAVE_RESERVA, 
+					reserva.getValorParcial(),
+					reserva.getMascota(),
+					reserva.getFechaInicio(),
+					reserva.getFechaFin(),
+					reserva.getValorTotal(),
+					reserva.getNumeroPersonas(),
+					reserva.getFkVivienda(),
+					reserva.getFkPersona(),
+					reserva.getEstado());
+			
+		} catch (DataAccessException e) {
+			return -1;
+		}
 	}
 	
 
