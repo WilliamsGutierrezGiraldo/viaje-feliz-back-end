@@ -24,6 +24,8 @@ public class PersonaDAO {
 			+ "FROM TBL_PERSONA P "
 			+ "WHERE DOCUMENTO_IDENTIFICACION = ?";
 	
+	private static String SAVE_PERSONA = "INSERT INTO TBL_PERSONA VALUES (?,?,?,?,?,?)";
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
@@ -35,6 +37,21 @@ public class PersonaDAO {
 			
 		} catch (DataAccessException e) {
 			return null;
+		}
+	}
+	
+	public int guardarPersona (PersonaDTO persona) {
+		try {
+			return jdbcTemplate.update(SAVE_PERSONA, 
+					persona.getDocumentoIdentificacion(),
+					persona.getNacionalidad(),
+					persona.getNombres(),
+					persona.getApellidos(),
+					persona.getDireccion(),
+					persona.getTelefonos());
+			
+		} catch (DataAccessException e) {
+			return -1;
 		}
 	}
 

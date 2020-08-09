@@ -23,5 +23,9 @@ public class PersonaService {
 		return this.personaDao.consultarPersonaPorId(id);
 	}
 	
+	public int guardarPersona(PersonaDTO persona) {
+		return this.personaDao.guardarPersona(persona);
+	}
+	
 
 }
