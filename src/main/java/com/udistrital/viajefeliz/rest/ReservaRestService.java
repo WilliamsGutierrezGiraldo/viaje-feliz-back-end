@@ -7,8 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udistrital.viajefeliz.dto.ReservaDTO;
@@ -28,8 +30,13 @@ public class ReservaRestService {
 	}
 	
 	@PostMapping(value = "/guardarReserva")
-	public int guardarReserva (ReservaDTO reserva) {
+	public int guardarReserva (@RequestBody ReservaDTO reserva) {
 		return this.reservaService.guardarReserva(reserva);
+	}
+	
+	@GetMapping(value = "/consultarDisponibilidad{idVivienda}{fecha}")
+	public List<ReservaDTO> consultarReservasPorViviendaYFecha (@RequestParam int idVivienda, @RequestParam String fecha) {
+		return this.reservaService.consultarReservasPorViviendaYFecha(idVivienda, fecha);
 	}
 
 }

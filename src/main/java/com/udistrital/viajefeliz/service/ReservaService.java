@@ -21,5 +21,9 @@ public class ReservaService {
 	public int guardarReserva (ReservaDTO reserva) {
 		return this.reservaDao.guardarReserva(reserva);
 	}
+	
+	public List<ReservaDTO> consultarReservasPorViviendaYFecha (int idVivienda, String fecha) {
+		return this.reservaDao.consultarReservaPorIdViviendaYFechas(idVivienda, fecha);
+	}
 
 }

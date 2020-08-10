@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class ReservaDTO {
 	
-	private int id;
+	private Long id;
 	
 	private double valorParcial;
 	
@@ -30,13 +30,13 @@ public class ReservaDTO {
 	private String fkPersona;
 	
 	private int estado;
-	
 
-	public int getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

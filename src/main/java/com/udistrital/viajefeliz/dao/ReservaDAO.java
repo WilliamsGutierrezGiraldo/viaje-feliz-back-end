@@ -31,6 +31,11 @@ public class ReservaDAO {
 	private static String SAVE_RESERVA = "INSERT INTO TBL_RESERVA (VALOR_PARCIAL, MASCOTA, FECHA_INICIO, FECHA_FIN, VALOR_TOTAL, " 
 			+"NUMERO_PERSONAS, FK_VIVIENDA, FK_PERSONA, ESTADO) VALUES (?,?,?,?,?,?,?,?,?)";
 	
+	private static String FIND_BY_VIVIENDA_AND_DATE = "SELECT R.* "
+			+ "FROM TBL_RESERVA R "
+			+ "WHERE FK_VIVIENDA = ? "
+			+ "AND ? BETWEEN R.FECHA_INICIO AND R.FECHA_FIN";
+	
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -61,6 +66,16 @@ public class ReservaDAO {
 			
 		} catch (DataAccessException e) {
 			return -1;
+		}
+	}
+	
+	public List<ReservaDTO> consultarReservaPorIdViviendaYFechas (int idVivienda, String fecha) {
+		try {
+			return jdbcTemplate.query(FIND_BY_VIVIENDA_AND_DATE, new Object[] {idVivienda, fecha}, 
+					new BeanPropertyRowMapper<>(ReservaDTO.class));
+			
+		} catch (DataAccessException e) {
+			return null;
 		}
 	}
 	
