@@ -1,5 +1,7 @@
 package com.udistrital.viajefeliz.rest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,13 @@ public class ReservaRestService {
 	
 	@GetMapping(value = "/consultarDisponibilidad{idVivienda}{fecha}")
 	public List<ReservaDTO> consultarReservasPorViviendaYFecha (@RequestParam int idVivienda, @RequestParam String fecha) {
-		return this.reservaService.consultarReservasPorViviendaYFecha(idVivienda, fecha);
+		
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+		
+		@SuppressWarnings("deprecation")
+		Date fechita = new Date(fecha);
+		
+		return this.reservaService.consultarReservasPorViviendaYFecha(idVivienda, sdfDate.format(fechita));
 	}
 
 }

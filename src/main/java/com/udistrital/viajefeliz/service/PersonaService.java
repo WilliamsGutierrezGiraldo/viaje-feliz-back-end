@@ -1,5 +1,7 @@
 package com.udistrital.viajefeliz.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class PersonaService {
 	@Autowired
 	private PersonaDAO personaDao;
 	
-	public PersonaDTO consultarPersonaPorId(String id) {
+	public List<PersonaDTO> consultarPersonaPorId(String id) {
 		return this.personaDao.consultarPersonaPorId(id);
 	}
 	

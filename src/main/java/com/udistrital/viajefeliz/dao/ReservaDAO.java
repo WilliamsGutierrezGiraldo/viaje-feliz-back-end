@@ -40,7 +40,6 @@ public class ReservaDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	
 	public List<ReservaDTO> consultarReservasPorPersonaId (String idPersona) {
 		try {
 			return jdbcTemplate.query(FIND_BY_PERSONA_ID, new Object[] {idPersona}, 

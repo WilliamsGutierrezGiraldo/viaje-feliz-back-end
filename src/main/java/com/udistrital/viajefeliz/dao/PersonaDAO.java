@@ -1,5 +1,7 @@
 package com.udistrital.viajefeliz.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -30,9 +32,9 @@ public class PersonaDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	
-	public PersonaDTO consultarPersonaPorId (String id) {
+	public List<PersonaDTO> consultarPersonaPorId (String id) {
 		try {
-			return jdbcTemplate.queryForObject(FIND_BY_ID, new Object[] {id}, 
+			return jdbcTemplate.query(FIND_BY_ID, new Object[] {id}, 
 					new BeanPropertyRowMapper<>(PersonaDTO.class));
 			
 		} catch (DataAccessException e) {

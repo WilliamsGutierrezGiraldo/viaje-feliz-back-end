@@ -1,5 +1,7 @@
 package com.udistrital.viajefeliz.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +25,7 @@ public class PersonaRestService {
 	private PersonaService personaService;
 	
 	@GetMapping(value = "/personaPorId{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
-	public PersonaDTO consultarPersonaPorId (@RequestParam String id) {
+	public List<PersonaDTO> consultarPersonaPorId (@RequestParam String id) {
 		return this.personaService.consultarPersonaPorId(id);
 	}
 	
