@@ -57,7 +57,9 @@ public class ProductServiceRestClient {
 		ResponseEntity<List<Map<String, Object>>> response = 
 				this.restTemplate.exchange(uriBuilder.build().toString(), HttpMethod.POST, entity, typeRef);
 		
-		System.out.print(response.getBody().toString());
+		System.out.println(response.getBody().toString());
+		System.out.println(response.getStatusCode());
+		System.out.println(response.getStatusCodeValue());
 		
 		return response.getBody();
 		
